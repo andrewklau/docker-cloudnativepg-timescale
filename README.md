@@ -8,7 +8,7 @@ Both versions are automatically updated by Renovate bot, so new releases will be
 
 ## Images
 
-Images are available at [`ghcr.io/clevyr/cloudnativepg-timescale`](https://github.com/clevyr/docker-cloudnativepg-timescale/pkgs/container/cloudnativepg-timescale). There are tags available for Postgres v14, v15, v16, and v17.
+Images are available at [`ghcr.io/andrewklau/cloudnativepg-timescale`](https://github.com/andrewklau/docker-cloudnativepg-timescale/pkgs/container/cloudnativepg-timescale). There are tags available for Postgres v14, v15, v16, and v17.
 
 ## Deployment
 
