@@ -1,6 +1,6 @@
 # CloudNativePG Containers with TimescaleDB
 
-[![Build](https://github.com/clevyr/docker-cloudnativepg-timescale/actions/workflows/build.yaml/badge.svg)](https://github.com/clevyr/docker-cloudnativepg-timescale/actions/workflows/build.yaml)
+[![Build](https://github.com/andrewklau/docker-cloudnativepg-timescale/actions/workflows/build.yaml/badge.svg)](https://github.com/andrewklau/docker-cloudnativepg-timescale/actions/workflows/build.yaml)
 
 This repo builds Docker images for [CloudNativePG](https://cloudnative-pg.io/) with the [TimescaleDB](https://timescale.com) extension installed.
 
