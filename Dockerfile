@@ -2,7 +2,7 @@
 
 ARG CLOUDNATIVEPG_VERSION
 
-FROM ghcr.io/cloudnative-pg/postgresql:$CLOUDNATIVEPG_VERSION
+FROM ghcr.io/cloudnative-pg/postgis:$CLOUDNATIVEPG_VERSION
 USER root
 
 ARG POSTGRES_VERSION
