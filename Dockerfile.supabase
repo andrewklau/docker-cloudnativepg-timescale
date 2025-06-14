@@ -7,6 +7,11 @@ USER root
 
 ARG POSTGRES_VERSION
 ARG TIMESCALE_VERSION
+
+ARG PGJWT_VERSION
+ARG WAL2JSON_VERSION
+ARG PGSAFEUPDATE_VERSION
+
 RUN <<EOT
   set -eux
 
@@ -25,20 +30,26 @@ RUN <<EOT
 
   # Install pgjwt extension
   cd /tmp
-  git clone https://github.com/michelp/pgjwt.git
-  cd pgjwt
+  curl -L https://github.com/michelp/pgjwt/archive/$PGJWT_VERSION.tar.gz | tar xz
+  cd pgjwt-$PGJWT_VERSION
   make install
 
   # Install wal2json extension
   cd /tmp
-  git clone https://github.com/eulerto/wal2json.git
-  cd wal2json
+  curl -L https://github.com/eulerto/wal2json/archive/wal2json_$WAL2JSON_VERSION.tar.gz | tar xz
+  cd wal2json-wal2json_$WAL2JSON_VERSION
+  make install
+
+  # Install pg-safeupdate extension
+  cd /tmp
+  curl -L https://github.com/eradman/pg-safeupdate/archive/$PGSAFEUPDATE_VERSION.tar.gz | tar xz
+  cd pg-safeupdate-$PGSAFEUPDATE_VERSION
   make install
 
   # Cleanup
   apt-get purge -y curl build-essential postgresql-server-dev-$POSTGRES_VERSION git
   rm /etc/apt/sources.list.d/timescaledb.list /etc/apt/trusted.gpg.d/timescale.gpg
-  rm -rf /var/cache/apt/* /tmp/pgjwt /tmp/wal2json
+  rm -rf /var/cache/apt/* /tmp/pgjwt-* /tmp/wal2json-* /tmp/pg-safeupdate-*
 EOT
 
 USER 26
