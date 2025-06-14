@@ -8,7 +8,7 @@ env:
 
 jobs:
   build:
-    name: Build Image (pg${{ matrix.postgres_version }})
+    name: Build Image (pg${{ matrix.postgres_version }}) - ${{ matrix.variant }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -20,6 +20,16 @@ jobs:
             # renovate datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
             cnpg_version: 17-3.5-122
             latest: "true"
+            variant: "base"
+            dockerfile: "Dockerfile"
+            image_suffix: ""
+          - postgres_version: "17"
+            # renovate datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
+            cnpg_version: 17-3.5-114
+            latest: "false"
+            variant: "supabase"
+            dockerfile: "Dockerfile.supabase"
+            image_suffix: "-supabase"
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -46,7 +56,7 @@ jobs:
         uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/cloudnativepg-timescale
+            ghcr.io/${{ github.repository_owner }}/cloudnativepg-timescale${{ matrix.image_suffix }}
           flavor: latest=false
           tags: |
             type=raw,priority=1000,value=latest,enable=${{ matrix.latest || 'false' }}
@@ -70,6 +80,7 @@ jobs:
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
           context: .
+          file: ./${{ matrix.dockerfile }}
           pull: true
           push: ${{ github.ref_name == 'main' }}
           platforms: linux/amd64
