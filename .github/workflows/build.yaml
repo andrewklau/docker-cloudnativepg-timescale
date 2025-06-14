@@ -4,7 +4,7 @@ on: push
 
 env:
   # renovate datasource=github-releases depName=timescale/timescaledb
-  TIMESCALE_VERSION: 2.19.3
+  TIMESCALE_VERSION: 2.20.2
 
   # Extension versions
   PGJWT_VERSION: 9742dab1b2f297ad3811120db7b21451bca2d3c9
