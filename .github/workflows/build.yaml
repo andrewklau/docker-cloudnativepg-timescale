@@ -5,7 +5,7 @@ on: push
 env:
   # renovate datasource=github-releases depName=timescale/timescaledb
   TIMESCALE_VERSION: 2.19.3
-  
+
   # Extension versions
   PGJWT_VERSION: 9742dab1b2f297ad3811120db7b21451bca2d3c9
   WAL2JSON_VERSION: 2_6
@@ -23,14 +23,14 @@ jobs:
         include:
           - postgres_version: "17"
             # renovate datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-            cnpg_version: 17-3.5-114
+            cnpg_version: 17-3.5-122
             latest: "true"
             variant: "base"
             dockerfile: "Dockerfile"
             image_suffix: ""
           - postgres_version: "17"
             # renovate datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-            cnpg_version: 17-3.5-114
+            cnpg_version: 17-3.5-122
             latest: "false"
             variant: "supabase"
             dockerfile: "Dockerfile.supabase"
