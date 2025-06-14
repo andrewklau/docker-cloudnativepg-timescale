@@ -1,0 +1,44 @@
+#syntax=docker/dockerfile:1.15
+
+ARG CLOUDNATIVEPG_VERSION
+
+FROM ghcr.io/cloudnative-pg/postgis:$CLOUDNATIVEPG_VERSION
+USER root
+
+ARG POSTGRES_VERSION
+ARG TIMESCALE_VERSION
+RUN <<EOT
+  set -eux
+
+  # Install dependencies
+  apt-get update
+  apt-get install -y --no-install-recommends curl build-essential postgresql-server-dev-$POSTGRES_VERSION git
+
+  # Add Timescale apt repo
+  . /etc/os-release 2>/dev/null
+  echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $VERSION_CODENAME main" >/etc/apt/sources.list.d/timescaledb.list
+  curl -Lsf https://packagecloud.io/timescale/timescaledb/gpgkey | gpg --dearmor >/etc/apt/trusted.gpg.d/timescale.gpg
+
+  # Install Timescale
+  apt-get update
+  apt-get install -y --no-install-recommends "timescaledb-2-postgresql-$POSTGRES_VERSION=$TIMESCALE_VERSION~debian$VERSION_ID" timescaledb-toolkit-postgresql-$POSTGRES_VERSION
+
+  # Install pgjwt extension
+  cd /tmp
+  git clone https://github.com/michelp/pgjwt.git
+  cd pgjwt
+  make install
+
+  # Install wal2json extension
+  cd /tmp
+  git clone https://github.com/eulerto/wal2json.git
+  cd wal2json
+  make install
+
+  # Cleanup
+  apt-get purge -y curl build-essential postgresql-server-dev-$POSTGRES_VERSION git
+  rm /etc/apt/sources.list.d/timescaledb.list /etc/apt/trusted.gpg.d/timescale.gpg
+  rm -rf /var/cache/apt/* /tmp/pgjwt /tmp/wal2json
+EOT
+
+USER 26
