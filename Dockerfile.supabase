@@ -38,12 +38,14 @@ RUN <<EOT
   cd /tmp
   curl -L https://github.com/eulerto/wal2json/archive/wal2json_$WAL2JSON_VERSION.tar.gz | tar xz
   cd wal2json-wal2json_$WAL2JSON_VERSION
+  make
   make install
 
   # Install pg-safeupdate extension
   cd /tmp
   curl -L https://github.com/eradman/pg-safeupdate/archive/$PGSAFEUPDATE_VERSION.tar.gz | tar xz
   cd pg-safeupdate-$PGSAFEUPDATE_VERSION
+  make
   make install
 
   # Cleanup
