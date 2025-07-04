@@ -23,14 +23,14 @@ jobs:
         include:
           - postgres_version: "17"
             # renovate datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-            cnpg_version: 17-3.5-122
+            cnpg_version: 17-3.5-145
             latest: "true"
             variant: "base"
             dockerfile: "Dockerfile"
             image_suffix: ""
           - postgres_version: "17"
             # renovate datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-            cnpg_version: 17-3.5-122
+            cnpg_version: 17-3.5-145
             latest: "false"
             variant: "supabase"
             dockerfile: "Dockerfile.supabase"
